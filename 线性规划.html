@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 线性规划 | 运筹学</title>
+  <meta name="description" content="test" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 线性规划 | 运筹学" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="test" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 线性规划 | 运筹学" />
+  
+  <meta name="twitter:description" content="test" />
+  
+
+<meta name="author" content="Jim Zhang" />
+
+
+<meta name="date" content="2022-09-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">运筹学</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 前言</a></li>
+<li class="chapter" data-level="2" data-path="线性规划.html"><a href="线性规划.html"><i class="fa fa-check"></i><b>2</b> 线性规划</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="线性规划.html"><a href="线性规划.html#线性规划问题的标准形式"><i class="fa fa-check"></i><b>2.1</b> 线性规划问题的标准形式</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="线性规划.html"><a href="线性规划.html#线性规划问题解的概念"><i class="fa fa-check"></i><b>2.1.1</b> 线性规划问题解的概念</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+<li><a href="https://jimzhang.me" target="blank">Jim Zhang 的博客</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">运筹学</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="线性规划" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> 线性规划<a href="线性规划.html#线性规划" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="线性规划问题的标准形式" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> 线性规划问题的标准形式<a href="线性规划.html#线性规划问题的标准形式" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>线性规划问题有各种不同的形式。目标函数有的要求 <span class="math inline">\(\max\)</span>，有的要求 <span class="math inline">\(\min\)</span>；约束条件有的是 <span class="math inline">\(\leq\)</span>，有的是 <span class="math inline">\(\geq\)</span>，有的是 <span class="math inline">\(=\)</span>；决策变量一般是非负约束，但有的时候也允许取负值或无约束。将这些多种形式的数学模型统一变换为标准形式。这里规定的标准形式为</p>
+<p><span class="math display" id="eq:1">\[
+\max z=\boldsymbol{C}\boldsymbol{x}, \\
+\text{s.t.}
+\begin{cases}
+\tag{2.1}
+\boldsymbol{A}\boldsymbol{x}=\boldsymbol{b} \\
+\boldsymbol{x}\succeq\boldsymbol{0}
+\end{cases}.
+\]</span></p>
+<p>其中，<span class="math inline">\(\boldsymbol{C}\)</span> 是价值矩阵，<span class="math inline">\(\boldsymbol{A}\)</span> 是约束条件的系数矩阵，<span class="math inline">\(\boldsymbol{b}\)</span> 是资源向量，<span class="math inline">\(\boldsymbol{x}\)</span> 是决策变量的向量。</p>
+<p>应用单纯形法求解各种线性规划问题的数学模型都应先变换为标准形式</p>
+<p>以下讨论如何转化为标准型：</p>
+<ol style="list-style-type: decimal">
+<li>若目标函数实现最小化即 <span class="math inline">\(\min z=\boldsymbol{C}\boldsymbol{x}\)</span>，则将其转化为 <span class="math inline">\(\max (-z)=-\boldsymbol{C}\boldsymbol{x}\)</span>。</li>
+<li>若约束条件为不等式，如果约束方程为 <span class="math inline">\(\leq\)</span> 不等式，则在不等式的左边加入非负松弛变量；如果约束方程为 <span class="math inline">\(\geq\)</span> 不等式，则在不等式的右边加入非负松弛变量，把约束条件转化为等式。</li>
+<li>若存在取值无约束的变量 <span class="math inline">\(x_k\)</span>，令 <span class="math inline">\(x_k=x_k&#39;-x_k&#39;&#39;\)</span>，其中 <span class="math inline">\(x_k&#39;\)</span> 和 <span class="math inline">\(x_k&#39;&#39;\)</span> 都是非负变量。</li>
+</ol>
+<div class="example">
+<p><span id="exm:1" class="example"><strong>Example 2.1  </strong></span>将以下线性规划问题化为标准型</p>
+<p><span class="math display">\[
+\min z=-x_1+2x_2-3x_3, \\
+\text{s.t.}
+\begin{cases}
+\begin{aligned}
+&amp;x_1+x_2+x_3&amp;\leq 7 \\
+&amp;x_1-x_2+x_3&amp;\geq 2 \\
+-3&amp;x_1+x_2+2x_3&amp;= 5 \\
+&amp;x_1,x_2\geq 0
+\end{aligned}
+\end{cases}.
+\]</span></p>
+</div>
+<div class="solution">
+<p><span id="id_1" class="solution"><em>Solution</em>. </span>令 <span class="math inline">\(x_3=x_4-x_5\)</span>，其中 <span class="math inline">\(x_4, x_5\geq 0\)</span>；
+在第一个不等式的左边加上松弛变量 <span class="math inline">\(x_6\)</span>，在第二个不等式的右边减去松弛变量 <span class="math inline">\(x_7\)</span>，其中 <span class="math inline">\(x_6, x_7\geq 0\)</span>；
+令 <span class="math inline">\(z&#39;=-z\)</span>，把求 <span class="math inline">\(\min z\)</span> 转化为求 <span class="math inline">\(\max z&#39;\)</span>。</p>
+<p>得到</p>
+<p><span class="math display">\[
+\max z&#39;=-x_1+2x_2-3x_4+3x_5, \\
+\text{s.t.}
+\begin{cases}
+\begin{aligned}
+&amp;x_1+x_2+(x_4-x_5)+x_6= 7 \\
+&amp;x_1-x_2+(x_4-x_5)-x_7= 2 \\
+-3&amp;x_1+x_2+2(x_4-x_5)= 5 \\
+&amp;x_1,x_2,x_4,x_5,x_6,x_7\geq 0
+\end{aligned}
+\end{cases}.
+\]</span></p>
+</div>
+<div id="线性规划问题解的概念" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> 线性规划问题解的概念<a href="线性规划.html#线性规划问题解的概念" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="definition">
+<p><span id="def:label" class="definition"><strong>Definition 2.1  (可行解与最优解) </strong></span>满足 <span class="math inline">\(\begin{cases} \boldsymbol{A}\boldsymbol{x}=\boldsymbol{b} \\ \boldsymbol{x}\succeq\boldsymbol{0} \end{cases}\)</span> 这一约束条件 的 <span class="math inline">\(\boldsymbol{x}\)</span> 称为线性规划问题的一个可行解。使目标函数达到最大值的可行解称为线性规划问题的最优解。</p>
+</div>
+
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Python-GIS.pdf", "Python-GIS.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
